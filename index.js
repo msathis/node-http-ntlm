@@ -15,6 +15,7 @@ var _ = require('underscore');
 	
  	options = _.extend(defaults, options);
 	var reqOptions = _.extend({}, options.request);
+	reqOptions.url = reqOptions.url || options.url;
 
 	async.waterfall([
 		function ($){
@@ -29,7 +30,7 @@ var _ = require('underscore');
 				timeout: options.timeout || 0,
 				forever: true			
 			};
-			type1options.url = options.url;
+			type1options.url = reqOptions.url;
 
 			// add timeout option:
 			if(reqOptions.timeout) 
@@ -58,7 +59,7 @@ var _ = require('underscore');
 				followRedirect: false,
 				forever: true
 			};
-			type3options.url = options.url;
+			type3options.url = reqOptions.url;
 
 			// pass along other options:
 			type3options.headers = _.extend(type3options.headers, reqOptions.headers);

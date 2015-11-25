@@ -1,7 +1,7 @@
 {
-  "name": "request-stream-ntlm",
+  "name": "request-simple-ntlm",
   "description": "request-simple-ntlm is a Node.js library to do HTTP NTLM authentication using request module",
-  "version": "1.5.2",
+  "version": "1.1.0",
   "dependencies": {
     "async": "~0.2.9",
     "request": "^2.67.0",
@@ -12,14 +12,14 @@
     "url": "https://github.com/msathis/"
   },
   "bugs": {
-    "url": "https://github.com/sathis/node-http-ntlm/issues"
+    "url": "https://github.com/msathis/request-simple-ntlm/issues"
   },
   "engines": {
     "node": ">=0.11.0"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/sathis/node-http-ntlm.git"
+    "url": "git://github.com/msathis/request-simple-ntlm.git"
   },
   "main": "./index",
   "licenses": [
