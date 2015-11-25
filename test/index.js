@@ -1,4 +1,4 @@
-var ntlm = require('../lib/httpntlm');
+var ntlm = require('request-simple-ntlm');
 
 var options = {
 	url: <URL>,
@@ -18,7 +18,7 @@ ntlm.fetch(options, function(err, resp, body) {
 });
 
 ntlm.stream(options, function(request) {
-	//request.pipe(process.stdout);
+	request.pipe(process.stdout);
 }, function(err) {
 	 console.log('Error is : ', err);
 });

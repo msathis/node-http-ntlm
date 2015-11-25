@@ -1,35 +1,47 @@
-# httpntlm
+# request-simple-ntlm
 
-__httpntlm__ is a Node.js library to do HTTP NTLM authentication
+__request-simple-ntlm__ is a Node.js library to do HTTP NTLM authentication using [request](https://github.com/request/request)
 
-It's a port from the Python libary [python-ntml](https://code.google.com/p/python-ntlm/)
+It's a fork from [httpntlm](https://github.com/SamDecrock/node-http-ntlm) which is again a port from the Python libary [python-ntml](https://code.google.com/p/python-ntlm/)
 
 ## Install
 
-You can install __httpntlm__ using the Node Package Manager (npm):
+You can install __request-simple-ntlm__ using the Node Package Manager (npm):
 
-    npm install httpntlm
+    npm install request-simple-ntlm
 
 ## How to use
 
+An example can be found in __test__ directory.
+
 ```js
-var httpntlm = require('httpntlm');
+var ntlm = require('request-simple-ntlm');
 
-httpntlm.get({
+var options = {
     url: "https://someurl.com",
-    username: 'm$',
-    password: 'stinks',
-    workstation: 'choose.something',
-    domain: ''
-}, function (err, res){
-    if(err) return err;
+    username: 'username',
+    password: 'password',
+    workstation: 'something',
+    domain: '',
+    request: {
 
-    console.log(res.headers);
-    console.log(res.body);
+    }
+};
+
+//For just fetching content. Same arguments as request library's callback method.
+ntlm.fetch(options, function (err, res, body){
+    if(err) return console.warn(err);
+
+    console.log(body);
+});
+
+//For streaming the content. Returns request object.
+ntlm.stream(options, function (request){
+    request.pipe(process.stdout);
 });
 ```
 
-It supports __http__ and __https__.
+It supports both __http__ and __https__.
 
 ## Options
 
@@ -38,67 +50,11 @@ It supports __http__ and __https__.
 - `password:` _{String}_   Password. (Required)
 - `workstation:` _{String}_ Name of workstation or `''`.
 - `domain:`   _{String}_   Name of domain or `''`.
+- `request:` _{Object}_    Request library options (headers, cookies etc you can pass) 
 
-You can also pass along all other options of [httpreq](https://github.com/SamDecrock/node-httpreq), including custom headers, cookies, body data, ... and use POST, PUT or DELETE instead of GET.
-
-## Advanced
-
-If you want to use the NTLM-functions yourself, you can access the ntlm-library like this (https example):
-
-```js
-var ntlm = require('httpntlm').ntlm;
-var async = require('async');
-var httpreq = require('httpreq');
-var HttpsAgent = require('agentkeepalive').HttpsAgent;
-var keepaliveAgent = new HttpsAgent();
-
-var options = {
-    url: "https://someurl.com",
-    username: 'm$',
-    password: 'stinks',
-    workstation: 'choose.something',
-    domain: ''
-};
-
-async.waterfall([
-    function (callback){
-        var type1msg = ntlm.createType1Message(options);
-
-        httpreq.get(options.url, {
-            headers:{
-                'Connection' : 'keep-alive',
-                'Authorization': type1msg
-            },
-            agent: keepaliveAgent
-        }, callback);
-    },
-
-    function (res, callback){
-        if(!res.headers['www-authenticate'])
-            return callback(new Error('www-authenticate not found on response of second request'));
-
-        var type2msg = ntlm.parseType2Message(res.headers['www-authenticate']);
-        var type3msg = ntlm.createType3Message(type2msg, options);
-
-        httpreq.get(options.url, {
-            headers:{
-                'Connection' : 'Close',
-                'Authorization': type3msg
-            },
-            allowRedirects: false,
-            agent: keepaliveAgent
-        }, callback);
-    }
-], function (err, res) {
-    if(err) return console.log(err);
-
-    console.log(res.headers);
-    console.log(res.body);
-});
-```
 
 ## More information
-
+* [httpntlm](https://github.com/SamDecrock/node-http-ntlm)
 * [python-ntlm](https://code.google.com/p/python-ntlm/)
 * [NTLM Authentication Scheme for HTTP](http://www.innovation.ch/personal/ronald/ntlm.html)
 * [LM hash on Wikipedia](http://en.wikipedia.org/wiki/LM_hash)
@@ -106,7 +62,7 @@ async.waterfall([
 
 ## License (MIT)
 
-Copyright (c) Sam Decrock <https://github.com/SamDecrock/>
+Copyright (c) Sathis <https://github.com/msathis/>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
