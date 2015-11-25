@@ -1,28 +1,27 @@
 {
-  "name": "httpntlm",
-  "description": "httpntlm is a Node.js library to do HTTP NTLM authentication",
+  "name": "request-stream-ntlm",
+  "description": "request-simple-ntlm is a Node.js library to do HTTP NTLM authentication using request module",
   "version": "1.5.2",
   "dependencies": {
-    "agentkeepalive": ">=1.2.0",
     "async": "~0.2.9",
-    "httpreq": ">=0.4.5",
+    "request": "^2.67.0",
     "underscore": "~1.7.0"
   },
   "author": {
-    "name": "Sam Decrock",
-    "url": "https://github.com/SamDecrock/"
+    "name": "Sathis",
+    "url": "https://github.com/msathis/"
   },
   "bugs": {
-    "url": "https://github.com/SamDecrock/node-http-ntlm/issues"
+    "url": "https://github.com/sathis/node-http-ntlm/issues"
   },
   "engines": {
     "node": ">=0.11.0"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/SamDecrock/node-http-ntlm.git"
+    "url": "git://github.com/sathis/node-http-ntlm.git"
   },
-  "main": "./httpntlm",
+  "main": "./index",
   "licenses": [
     {
       "type": "MIT",
