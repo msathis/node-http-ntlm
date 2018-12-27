@@ -23,7 +23,7 @@ function makeRequest(stream, options, callback) {
         const type1options = Object.assign(reqOptions, {
             followRedirect: false,
             forever: true,
-            headers: Object.assign(reqOptions.headers, {
+            headers: Object.assign(reqOptions.headers || {}, {
                 'Connection': 'keep-alive',
                 'Authorization': type1msg
             })
@@ -47,7 +47,7 @@ function makeRequest(stream, options, callback) {
         const type3options = Object.assign(reqOptions, {
             followRedirect: false,
             forever: true,
-            headers: Object.assign(reqOptions.headers, {
+            headers: Object.assign(reqOptions.headers || {}, {
                 'Connection': 'Close',
                 'Authorization': type3msg
             })
