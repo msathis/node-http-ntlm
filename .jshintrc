@@ -1,4 +1,6 @@
 {
   "node": true,
-  "laxbreak": true
+  "laxbreak": true,
+  "esversion": 6,
+  "bitwise": false
 }
