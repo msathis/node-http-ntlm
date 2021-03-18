@@ -1,9 +1,13 @@
 var ntlm = require('request-simple-ntlm');
 
+var url = '';
+var username = '';
+var password = '';
+
 var options = {
-    url: "<url>",
-    username: "<username>",
-    password: "<password>",
+    url: url,
+    username: username,
+    password: password,
     request: {
         headers: {
             'Accept': 'application/json'
